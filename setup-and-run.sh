@@ -353,6 +353,33 @@ EOF
 if ! echo "$TELEMETRY" | grep -sqE "true|TRUE|y|Y|yes|YES|1"; then
     echo "lenses.telemetry.enable=false" >> /opt/lenses/lenses.conf
 fi
+if echo "$ENABLE_SSL" | grep -sqE "true|TRUE|y|Y|yes|YES|1"; then
+    cat <<EOF >>/opt/lenses/lenses.conf
+
+lenses.kafka.settings.consumer.ssl.key.password=fastdata
+lenses.kafka.settings.consumer.ssl.keystore.location=/tmp/certs/kafka.jks
+lenses.kafka.settings.consumer.ssl.keystore.password=fastdata
+lenses.kafka.settings.consumer.ssl.truststore.location=/tmp/certs/truststore.jks
+lenses.kafka.settings.consumer.ssl.truststore.password=fastdata
+lenses.kafka.settings.consumer.security.protocol=SSL
+
+lenses.kafka.settings.producer.ssl.key.password=fastdata
+lenses.kafka.settings.producer.ssl.keystore.location=/tmp/certs/kafka.jks
+lenses.kafka.settings.producer.ssl.keystore.password=fastdata
+lenses.kafka.settings.producer.ssl.truststore.location=/tmp/certs/truststore.jks
+lenses.kafka.settings.producer.ssl.truststore.password=fastdata
+lenses.kafka.settings.producer.security.protocol=SSL
+
+lenses.kafka.settings.kstream.ssl.key.password=fastdata
+lenses.kafka.settings.kstream.ssl.keystore.location=/tmp/certs/kafka.jks
+lenses.kafka.settings.kstream.ssl.keystore.password=fastdata
+lenses.kafka.settings.kstream.ssl.truststore.location=/tmp/certs/truststore.jks
+lenses.kafka.settings.kstream.ssl.truststore.password=fastdata
+lenses.kafka.settings.kstream.security.protocol=SSL
+EOF
+    sed -r -e 's|PLAINTEXT://0\.0\.0\.0:9092|SSL://0.0.0.0:'"${BROKER_SSL_PORT}"'|' \
+            -i /opt/lenses/lenses.conf
+fi
 chown nobody:nobody /opt/lenses/lenses.conf
 # echo "auto.create.topics.enable=false" >> /opt/confluent/etc/kafka/server.properties
 
