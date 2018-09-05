@@ -5,6 +5,8 @@ RUN apt-get update \
     && apt-get install -y \
          unzip \
          wget \
+         python-pip \
+         awscli \
     && rm -rf /var/lib/apt/lists/* \
     && echo "progress = dot:giga" | tee /etc/wgetrc \
     && mkdir -p /mnt /opt /data \
@@ -332,6 +334,8 @@ RUN apk add --no-cache \
         supervisor \
         tar \
         wget \
+        python-dev \
+        py-pip \
     && echo "progress = dot:giga" | tee /etc/wgetrc \
     && mkdir -p /opt \
     && mkdir /extra-connect-jars /connectors \
@@ -401,6 +405,10 @@ RUN mkdir -p \
            --exclude=env.js
 
 RUN ln -s /var/log /var/www/logs
+
+# install aws clients
+RUN pip install awscli
+
 
 # Add executables, settings and configuration
 ADD setup-and-run.sh /usr/local/bin/
