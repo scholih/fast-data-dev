@@ -113,39 +113,39 @@ RUN wget $DEVARCH_USER $DEVARCH_PASS "${STREAM_REACTOR_URL}" -O /stream-reactor.
 # Add Third Party Connectors
 
 ## Twitter
-ARG TWITTER_CONNECTOR_URL="https://archive.landoop.com/third-party/kafka-connect-twitter/kafka-connect-twitter-0.1-master-33331ea-connect-1.0.0-jar-with-dependencies.jar"
-RUN mkdir -p /opt/landoop/connectors/third-party/kafka-connect-twitter \
-    && wget "$TWITTER_CONNECTOR_URL" -P /opt/landoop/connectors/third-party/kafka-connect-twitter
+# ARG TWITTER_CONNECTOR_URL="https://archive.landoop.com/third-party/kafka-connect-twitter/kafka-connect-twitter-0.1-master-33331ea-connect-1.0.0-jar-with-dependencies.jar"
+# RUN mkdir -p /opt/landoop/connectors/third-party/kafka-connect-twitter \
+#     && wget "$TWITTER_CONNECTOR_URL" -P /opt/landoop/connectors/third-party/kafka-connect-twitter
 
 ## Kafka Connect JDBC
-ARG KAFKA_CONNECT_JDBC_VERSION=4.1.2-lkd-r0
-ARG KAFKA_CONNECT_JDBC_URL="${ARCHIVE_SERVER}/lkd/packages/connectors/third-party/kafka-connect-jdbc/kafka-connect-jdbc-${KAFKA_CONNECT_JDBC_VERSION}.tar.gz"
-RUN wget $DEVARCH_USER $DEVARCH_PASS "$KAFKA_CONNECT_JDBC_URL" \
-         -O /opt/kafka-connect-jdbc.tar.gz \
-    && mkdir -p /opt/landoop/connectors/third-party/ \
-    && tar --no-same-owner -xf /opt/kafka-connect-jdbc.tar.gz \
-           -C /opt/landoop/connectors/third-party/ \
-    && rm -rf /opt/kafka-connect-jdbc.tar.gz
+# ARG KAFKA_CONNECT_JDBC_VERSION=4.1.2-lkd-r0
+# ARG KAFKA_CONNECT_JDBC_URL="${ARCHIVE_SERVER}/lkd/packages/connectors/third-party/kafka-connect-jdbc/kafka-connect-jdbc-${KAFKA_CONNECT_JDBC_VERSION}.tar.gz"
+# RUN wget $DEVARCH_USER $DEVARCH_PASS "$KAFKA_CONNECT_JDBC_URL" \
+#          -O /opt/kafka-connect-jdbc.tar.gz \
+#     && mkdir -p /opt/landoop/connectors/third-party/ \
+#     && tar --no-same-owner -xf /opt/kafka-connect-jdbc.tar.gz \
+#            -C /opt/landoop/connectors/third-party/ \
+#     && rm -rf /opt/kafka-connect-jdbc.tar.gz
 
 ## Kafka Connect ELASTICSEARCH
-ARG KAFKA_CONNECT_ELASTICSEARCH_VERSION=4.1.2-lkd-r0
-ARG KAFKA_CONNECT_ELASTICSEARCH_URL="${ARCHIVE_SERVER}/lkd/packages/connectors/third-party/kafka-connect-elasticsearch/kafka-connect-elasticsearch-${KAFKA_CONNECT_ELASTICSEARCH_VERSION}.tar.gz"
-RUN wget $DEVARCH_USER $DEVARCH_PASS "$KAFKA_CONNECT_ELASTICSEARCH_URL" \
-         -O /opt/kafka-connect-elasticsearch.tar.gz \
-    && mkdir -p /opt/landoop/connectors/third-party/ \
-    && tar --no-same-owner -xf /opt/kafka-connect-elasticsearch.tar.gz \
-           -C /opt/landoop/connectors/third-party/ \
-    && rm -rf /opt/kafka-connect-elasticsearch.tar.gz
+# ARG KAFKA_CONNECT_ELASTICSEARCH_VERSION=4.1.2-lkd-r0
+# ARG KAFKA_CONNECT_ELASTICSEARCH_URL="${ARCHIVE_SERVER}/lkd/packages/connectors/third-party/kafka-connect-elasticsearch/kafka-connect-elasticsearch-${KAFKA_CONNECT_ELASTICSEARCH_VERSION}.tar.gz"
+# RUN wget $DEVARCH_USER $DEVARCH_PASS "$KAFKA_CONNECT_ELASTICSEARCH_URL" \
+#          -O /opt/kafka-connect-elasticsearch.tar.gz \
+#     && mkdir -p /opt/landoop/connectors/third-party/ \
+#     && tar --no-same-owner -xf /opt/kafka-connect-elasticsearch.tar.gz \
+#            -C /opt/landoop/connectors/third-party/ \
+#     && rm -rf /opt/kafka-connect-elasticsearch.tar.gz
 
 ## Kafka Connect HDFS
-ARG KAFKA_CONNECT_HDFS_VERSION=4.1.2-lkd-r0
-ARG KAFKA_CONNECT_HDFS_URL="${ARCHIVE_SERVER}/lkd/packages/connectors/third-party/kafka-connect-hdfs/kafka-connect-hdfs-${KAFKA_CONNECT_HDFS_VERSION}.tar.gz"
-RUN wget $DEVARCH_USER $DEVARCH_PASS "$KAFKA_CONNECT_HDFS_URL" \
-         -O /opt/kafka-connect-hdfs.tar.gz \
-    && mkdir -p /opt/landoop/connectors/third-party/ \
-    && tar --no-same-owner -xf /opt/kafka-connect-hdfs.tar.gz \
-           -C /opt/landoop/connectors/third-party/ \
-    && rm -rf /opt/kafka-connect-hdfs.tar.gz
+# ARG KAFKA_CONNECT_HDFS_VERSION=4.1.2-lkd-r0
+# ARG KAFKA_CONNECT_HDFS_URL="${ARCHIVE_SERVER}/lkd/packages/connectors/third-party/kafka-connect-hdfs/kafka-connect-hdfs-${KAFKA_CONNECT_HDFS_VERSION}.tar.gz"
+# RUN wget $DEVARCH_USER $DEVARCH_PASS "$KAFKA_CONNECT_HDFS_URL" \
+#          -O /opt/kafka-connect-hdfs.tar.gz \
+#     && mkdir -p /opt/landoop/connectors/third-party/ \
+#     && tar --no-same-owner -xf /opt/kafka-connect-hdfs.tar.gz \
+#            -C /opt/landoop/connectors/third-party/ \
+#     && rm -rf /opt/kafka-connect-hdfs.tar.gz
 
 # Kafka Connect S3
 ARG KAFKA_CONNECT_S3_VERSION=4.1.2-lkd-r0
@@ -158,45 +158,45 @@ RUN wget $DEVARCH_USER $DEVARCH_PASS "$KAFKA_CONNECT_S3_URL" \
     && rm -rf /opt/kafka-connect-s3.tar.gz
 
 # Kafka Connect Couchbase
-ARG KAFKA_CONNECT_COUCHBASE_VERSION=3.2.2
-ARG KAFKA_CONNECT_COUCHBASE_URL="http://packages.couchbase.com/clients/kafka/${KAFKA_CONNECT_COUCHBASE_VERSION}/kafka-connect-couchbase-${KAFKA_CONNECT_COUCHBASE_VERSION}.zip"
-RUN wget $DEVARCH_USER $DEVARCH_PASS "$KAFKA_CONNECT_COUCHBASE_URL" \
-         -O /couchbase.zip \
-    && mkdir -p /couchbase /opt/landoop/connectors/third-party/kafka-connect-couchbase \
-    && unzip /couchbase.zip -d /couchbase \
-    && cp -ax /couchbase/kafka-connect-couchbase-${KAFKA_CONNECT_COUCHBASE_VERSION}/* \
-          /opt/landoop/connectors/third-party/kafka-connect-couchbase \
-    && chown -R root:root /opt/landoop/connectors/third-party/kafka-connect-couchbase \
-    && rm -rf /couchbase.zip /couchbase
+# ARG KAFKA_CONNECT_COUCHBASE_VERSION=3.2.2
+# ARG KAFKA_CONNECT_COUCHBASE_URL="http://packages.couchbase.com/clients/kafka/${KAFKA_CONNECT_COUCHBASE_VERSION}/kafka-connect-couchbase-${KAFKA_CONNECT_COUCHBASE_VERSION}.zip"
+# RUN wget $DEVARCH_USER $DEVARCH_PASS "$KAFKA_CONNECT_COUCHBASE_URL" \
+#          -O /couchbase.zip \
+#     && mkdir -p /couchbase /opt/landoop/connectors/third-party/kafka-connect-couchbase \
+#     && unzip /couchbase.zip -d /couchbase \
+#     && cp -ax /couchbase/kafka-connect-couchbase-${KAFKA_CONNECT_COUCHBASE_VERSION}/* \
+#           /opt/landoop/connectors/third-party/kafka-connect-couchbase \
+#     && chown -R root:root /opt/landoop/connectors/third-party/kafka-connect-couchbase \
+#     && rm -rf /couchbase.zip /couchbase
 
 # Kafka Connect Dbvisit Replicate
-ARG KAFKA_CONNECT_DBVISITREPLICATE_VERSION=2.0.0-SNAPSHOT
-ARG KAFKA_CONNECT_DBVISITREPLICATE_URL="https://www.dropbox.com/s/nhs8v3lwmigpks1/kafka-connect-dbvisitreplicate-${KAFKA_CONNECT_DBVISITREPLICATE_VERSION}.jar?dl=0"
-RUN mkdir -p /opt/landoop/connectors/third-party/kafka-connect-dbvisitreplicate \
-    && wget $DEVARCH_USER $DEVARCH_PASS "$KAFKA_CONNECT_DBVISITREPLICATE_URL" \
-            -O /opt/landoop/connectors/third-party/kafka-connect-dbvisitreplicate/kafka-connect-dbvisitreplicate-${KAFKA_CONNECT_DBVISITREPLICATE_VERSION}.jar
+# ARG KAFKA_CONNECT_DBVISITREPLICATE_VERSION=2.0.0-SNAPSHOT
+# ARG KAFKA_CONNECT_DBVISITREPLICATE_URL="https://www.dropbox.com/s/nhs8v3lwmigpks1/kafka-connect-dbvisitreplicate-${KAFKA_CONNECT_DBVISITREPLICATE_VERSION}.jar?dl=0"
+# RUN mkdir -p /opt/landoop/connectors/third-party/kafka-connect-dbvisitreplicate \
+#     && wget $DEVARCH_USER $DEVARCH_PASS "$KAFKA_CONNECT_DBVISITREPLICATE_URL" \
+#             -O /opt/landoop/connectors/third-party/kafka-connect-dbvisitreplicate/kafka-connect-dbvisitreplicate-${KAFKA_CONNECT_DBVISITREPLICATE_VERSION}.jar
 
 # Kafka Connect Debezium MongoDB / MySQL / Postgres
-ARG KAFKA_CONNECT_DEBEZIUM_MONGODB_VERSION=0.7.4
-ARG KAFKA_CONNECT_DEBEZIUM_MONGODB_URL="https://search.maven.org/remotecontent?filepath=io/debezium/debezium-connector-mongodb/${KAFKA_CONNECT_DEBEZIUM_MONGODB_VERSION}/debezium-connector-mongodb-${KAFKA_CONNECT_DEBEZIUM_MONGODB_VERSION}-plugin.tar.gz"
-ARG KAFKA_CONNECT_DEBEZIUM_MYSQL_VERSION=0.7.4
-ARG KAFKA_CONNECT_DEBEZIUM_MYSQL_URL="https://search.maven.org/remotecontent?filepath=io/debezium/debezium-connector-mysql/${KAFKA_CONNECT_DEBEZIUM_MYSQL_VERSION}/debezium-connector-mysql-${KAFKA_CONNECT_DEBEZIUM_MYSQL_VERSION}-plugin.tar.gz"
-ARG KAFKA_CONNECT_DEBEZIUM_POSTGRES_VERSION=0.7.4
-ARG KAFKA_CONNECT_DEBEZIUM_POSTGRES_URL="https://search.maven.org/remotecontent?filepath=io/debezium/debezium-connector-postgres/${KAFKA_CONNECT_DEBEZIUM_POSTGRES_VERSION}/debezium-connector-postgres-${KAFKA_CONNECT_DEBEZIUM_POSTGRES_VERSION}-plugin.tar.gz"
-RUN mkdir -p /opt/landoop/connectors/third-party/kafka-connect-debezium-{mongodb,mysql,postgres} \
-    && wget "$KAFKA_CONNECT_DEBEZIUM_MONGODB_URL" -O /debezium-mongodb.tgz \
-    && tar -xf /debezium-mongodb.tgz \
-           --owner=root --group=root --strip-components=1 \
-           -C  /opt/landoop/connectors/third-party/kafka-connect-debezium-mongodb \
-    && wget "$KAFKA_CONNECT_DEBEZIUM_MYSQL_URL" -O /debezium-mysql.tgz \
-    && tar -xf /debezium-mysql.tgz \
-           --owner=root --group=root --strip-components=1 \
-           -C  /opt/landoop/connectors/third-party/kafka-connect-debezium-mysql \
-    && wget "$KAFKA_CONNECT_DEBEZIUM_POSTGRES_URL" -O /debezium-postgres.tgz \
-    && tar -xf /debezium-postgres.tgz \
-           --owner=root --group=root --strip-components=1 \
-           -C  /opt/landoop/connectors/third-party/kafka-connect-debezium-postgres \
-    && rm -rf /debezium-{mongodb,mysql,postgres}.tgz
+# ARG KAFKA_CONNECT_DEBEZIUM_MONGODB_VERSION=0.7.4
+# ARG KAFKA_CONNECT_DEBEZIUM_MONGODB_URL="https://search.maven.org/remotecontent?filepath=io/debezium/debezium-connector-mongodb/${KAFKA_CONNECT_DEBEZIUM_MONGODB_VERSION}/debezium-connector-mongodb-${KAFKA_CONNECT_DEBEZIUM_MONGODB_VERSION}-plugin.tar.gz"
+# ARG KAFKA_CONNECT_DEBEZIUM_MYSQL_VERSION=0.7.4
+# ARG KAFKA_CONNECT_DEBEZIUM_MYSQL_URL="https://search.maven.org/remotecontent?filepath=io/debezium/debezium-connector-mysql/${KAFKA_CONNECT_DEBEZIUM_MYSQL_VERSION}/debezium-connector-mysql-${KAFKA_CONNECT_DEBEZIUM_MYSQL_VERSION}-plugin.tar.gz"
+# ARG KAFKA_CONNECT_DEBEZIUM_POSTGRES_VERSION=0.7.4
+# ARG KAFKA_CONNECT_DEBEZIUM_POSTGRES_URL="https://search.maven.org/remotecontent?filepath=io/debezium/debezium-connector-postgres/${KAFKA_CONNECT_DEBEZIUM_POSTGRES_VERSION}/debezium-connector-postgres-${KAFKA_CONNECT_DEBEZIUM_POSTGRES_VERSION}-plugin.tar.gz"
+# RUN mkdir -p /opt/landoop/connectors/third-party/kafka-connect-debezium-{mongodb,mysql,postgres} \
+#     && wget "$KAFKA_CONNECT_DEBEZIUM_MONGODB_URL" -O /debezium-mongodb.tgz \
+#     && tar -xf /debezium-mongodb.tgz \
+#            --owner=root --group=root --strip-components=1 \
+#            -C  /opt/landoop/connectors/third-party/kafka-connect-debezium-mongodb \
+#     && wget "$KAFKA_CONNECT_DEBEZIUM_MYSQL_URL" -O /debezium-mysql.tgz \
+#     && tar -xf /debezium-mysql.tgz \
+#            --owner=root --group=root --strip-components=1 \
+#            -C  /opt/landoop/connectors/third-party/kafka-connect-debezium-mysql \
+#     && wget "$KAFKA_CONNECT_DEBEZIUM_POSTGRES_URL" -O /debezium-postgres.tgz \
+#     && tar -xf /debezium-postgres.tgz \
+#            --owner=root --group=root --strip-components=1 \
+#            -C  /opt/landoop/connectors/third-party/kafka-connect-debezium-postgres \
+#     && rm -rf /debezium-{mongodb,mysql,postgres}.tgz
 
 ############
 # Add tools/
